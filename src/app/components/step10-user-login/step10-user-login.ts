@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../shared/sevices/user.service';
 import { MatFormField, MatLabel, MatInput, MatError } from "@angular/material/input";
 import { MatAnchor } from "@angular/material/button";
+import { Credentials } from '../../shared/interfaces/user';
 
 @Component({
   selector: 'app-step10-user-login',
@@ -11,6 +12,7 @@ import { MatAnchor } from "@angular/material/button";
   styleUrl: './step10-user-login.css',
 })
 export class Step10UserLogin {
+  userService = inject(UserService);
    
   invalidLogin: boolean = false;
 
@@ -21,5 +23,9 @@ export class Step10UserLogin {
 
   onSubmit(){
     console.log(this.form.value);
+    this.userService.loginUser(this.form.value as Credentials)
+      .subscribe(response => {
+        console.log(response);
+      })
   }
 }
