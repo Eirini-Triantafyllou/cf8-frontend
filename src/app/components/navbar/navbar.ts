@@ -14,6 +14,6 @@ export class Navbar {
   user = this.userService.user;
   
   logout(){
-    this.userService.logoutuser();
+    this.userService.logoutUser();
   }
 }

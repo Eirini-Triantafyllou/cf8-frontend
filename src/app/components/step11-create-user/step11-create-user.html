@@ -1,5 +1,16 @@
+
 <div>
   <h4>Create User</h4>
+
+  @if(registrationStatus.success){
+    <div class="alert alert-success mt-2 w-50">
+      {{registrationStatus.message}}
+    </div>
+  } @else {
+    <div class="alert alert-danger mt-2 w-50">
+      Error: {{registrationStatus.message}}
+    </div>
+  }
 
   {{form.value | json}}
   <form class="d-flex flex-column" [formGroup]="form">
@@ -65,13 +76,13 @@
         </div>
       }
     </div>
-   
+
     <mat-form-field>
       <mat-label>Password</mat-label>
       <input type="password" matInput formControlName="password">
       <mat-error>Password is missing or ivalid</mat-error>
     </mat-form-field>
- 
+
     <mat-form-field>
       <mat-label>Confirm Passowrd</mat-label>
       <input type="password" matInput formControlName="confirmPassword">
