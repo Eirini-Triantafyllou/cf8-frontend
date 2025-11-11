@@ -40,4 +40,8 @@ export class UserService {
     localStorage.removeItem("access_token");
     this.router.navigate(['login-example'])
    }
+
+    createUser(data:IUser){
+    return this.http.post<IUser>(API_URL, data);
+  }
 }
