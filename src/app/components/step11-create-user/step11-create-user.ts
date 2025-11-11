@@ -1,20 +1,24 @@
 import { Component, inject } from '@angular/core';
 import { UserService } from '../../shared/services/user.service';
-import { FormArray, 
+import { 
+  FormArray, 
   FormControl, 
   FormGroup, 
-  AbstractControl,
-   ReactiveFormsModule, 
-   Validators } from '@angular/forms';
+  AbstractControl, 
+  ReactiveFormsModule, 
+  Validators 
+} from '@angular/forms';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { IUser } from '../../shared/interfaces/user';
+import {IUser} from '../../shared/interfaces/user';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-step11-create-user',
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatSelectModule,
@@ -32,8 +36,8 @@ export class Step11CreateUser {
     firstname: new FormControl(''),
     lastname: new FormControl(''),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('',[Validators.required, Validators.minLength(5)]),
-    confirmPassword: new FormControl('',[Validators.required, Validators.minLength(5)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    confirmPassword: new FormControl('', [Validators.required, Validators.minLength(5)]),
     address: new FormGroup({
       area: new FormControl(''),
       street: new FormControl('')
@@ -45,4 +49,19 @@ export class Step11CreateUser {
       })
     ])
   })
+
+  phone = this.form.get('phone') as FormArray;
+
+  addPhoneNumber(){
+    this.phone.push(
+      new FormGroup({
+        number: new FormControl('', Validators.required),
+        type: new FormControl('', Validators.required)
+      })
+    )
+  }
+
+  deletePhoneNumber(index:number){
+    this.phone.removeAt(index);
+  }
 }
